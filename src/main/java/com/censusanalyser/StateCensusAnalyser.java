@@ -44,6 +44,12 @@ public class StateCensusAnalyser
         {
             throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
         }
+        catch (RuntimeException e)
+        {
+            System.out.println(e);
+
+            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.WRONG_DELIMITER);
+        }
         return totalRecords;
     }
 }
