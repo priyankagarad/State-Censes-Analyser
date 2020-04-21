@@ -9,12 +9,13 @@ public class StateCensusAnalyserTest
     private static String IMPROPER_FILE_NAME = "./src/test/resources/StateCensusData1.csv";
     private static String IMPROPER_FILE_TYPE = "./src/test/resources/StateCensusData.txt";
     private static String WRONG_DELIMITER1="./src/test/resources/DelimiterIncorrect.csv";
+    private static String WRONG_FILE_FORMATE="./src/test/resources/DelimiterIncorrect.csv";
 
+    StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser(DATA_CSV_FILE_PATH);
     /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenTheStatesCensusCSVFile_whenNumberOfRecordMatch_shouldReturnTrue() throws IOException, StateCensusAnalyserException
     {
-        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(DATA_CSV_FILE_PATH);
         int totalRecords = stateCensusAnalyser.loadData();
         Assert.assertEquals(29, totalRecords);
     }
@@ -24,7 +25,6 @@ public class StateCensusAnalyserTest
     {
         try
         {
-            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(DATA_CSV_FILE_PATH);
             stateCensusAnalyser = new StateCensusAnalyser(IMPROPER_FILE_NAME);
             stateCensusAnalyser.loadData();
         }
@@ -36,10 +36,12 @@ public class StateCensusAnalyserTest
     /* TC 1.3 : Given the State Census CSV File when correct but type incorrect Returns a custom Exception */
     @Test
     public void givenTheStateCensusCSVFile_whenCorrectButTypeIncorrect_shouldReturnCustomException() throws IOException {
-        try {
-            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(IMPROPER_FILE_TYPE);
+        try
+        {
+            stateCensusAnalyser = new StateCensusAnalyser(IMPROPER_FILE_TYPE);
             stateCensusAnalyser.loadData();
-        } catch (StateCensusAnalyserException e) {
+        } catch (StateCensusAnalyserException e)
+        {
             e.printStackTrace();
         }
     }
@@ -49,7 +51,21 @@ public class StateCensusAnalyserTest
     {
         try
         {
-            StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(WRONG_DELIMITER1);
+            stateCensusAnalyser = new StateCensusAnalyser(WRONG_DELIMITER1);
+            stateCensusAnalyser.loadData();
+        }
+        catch (StateCensusAnalyserException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    /* TC 1.5 : Given the State Census CSV File when correct but csv header incorrect Returns a custom Exception*/
+    @Test
+    public void givenFileData_whenIncorrect_shouldThrowException() throws IOException
+    {
+        try
+        {
+            stateCensusAnalyser=new StateCensusAnalyser(WRONG_FILE_FORMATE);
             stateCensusAnalyser.loadData();
         }
         catch (StateCensusAnalyserException e)

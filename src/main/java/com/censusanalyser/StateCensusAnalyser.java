@@ -46,8 +46,6 @@ public class StateCensusAnalyser
         }
         catch (RuntimeException e)
         {
-            System.out.println(e);
-
             throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.WRONG_DELIMITER);
         }
         return totalRecords;
