@@ -12,7 +12,6 @@ public class StateCensusAnalyserTest
 
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
 
-
     StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser(DATA_CSV_FILE_PATH);
     CSVStates csvStates=new CSVStates();
     /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
@@ -76,7 +75,7 @@ public class StateCensusAnalyserTest
             e.printStackTrace();
         }
     }
-    /* TC 1.1 : Given the States Census CSV Data file, Check to ensure the Number of Record matches */
+    /* TC 2.1 : Given the States Census CSV Data file, Check to ensure the Number of Record matches */
     @Test
     public void givenTotalRecordsFromStateCsvDataFile_whenMatch_shouldReturnTrue() throws IOException {
         int totalRecords=csvStates.loadStateCodes(STATE_CODE_FILE);
