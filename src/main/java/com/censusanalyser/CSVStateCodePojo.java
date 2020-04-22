@@ -37,7 +37,6 @@ public class CSVStateCodePojo
     {
         this.TTN=TTN;
     }
-
     public String getStateCode()
     {
         return  StateCode;

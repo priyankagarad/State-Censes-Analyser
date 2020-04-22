@@ -32,11 +32,6 @@ public class StateCensusAnalyser
             Iterator<CSVStateCensus> csvStateCensusIterator = csvStateCensusBeanObj.iterator();
             while (csvStateCensusIterator.hasNext()) {
                 CSVStateCensus csvStateCensus = csvStateCensusIterator.next();
-                System.out.println("State: " + csvStateCensus.getState());
-                System.out.println("Population: " + csvStateCensus.getPopulation());
-                System.out.println("AreaInSquareKm: " + csvStateCensus.getAreaInSqKm());
-                System.out.println("DensityPerSquareKm: " + csvStateCensus.getDensityPerSqKm());
-                System.out.println("----------------------------");
                 totalRecords++;
             }
         }
