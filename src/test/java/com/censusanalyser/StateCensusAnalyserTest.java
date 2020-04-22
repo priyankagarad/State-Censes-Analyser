@@ -1,6 +1,5 @@
 package com.censusanalyser;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 public class StateCensusAnalyserTest
@@ -11,7 +10,11 @@ public class StateCensusAnalyserTest
     private static String WRONG_DELIMITER1="./src/test/resources/DelimiterIncorrect.csv";
     private static String WRONG_FILE_FORMATE="./src/test/resources/DelimiterIncorrect.csv";
 
+    public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
+
+
     StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser(DATA_CSV_FILE_PATH);
+    CSVStates csvStates=new CSVStates();
     /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenTheStatesCensusCSVFile_whenNumberOfRecordMatch_shouldReturnTrue() throws IOException, StateCensusAnalyserException
@@ -72,6 +75,12 @@ public class StateCensusAnalyserTest
         {
             e.printStackTrace();
         }
+    }
+    /* TC 1.1 : Given the States Census CSV Data file, Check to ensure the Number of Record matches */
+    @Test
+    public void givenTotalRecordsFromStateCsvDataFile_whenMatch_shouldReturnTrue() throws IOException {
+        int totalRecords=csvStates.loadStateCodes(STATE_CODE_FILE);
+        Assert.assertEquals(37,totalRecords);
     }
 }
 
