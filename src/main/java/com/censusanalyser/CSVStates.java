@@ -7,8 +7,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import static java.nio.file.Files.newBufferedReader;
 
-public class CSVStates
-{
+public class CSVStates {
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
 
     public static void main(String args[]) throws IOException, StateCensusAnalyserException {
@@ -25,20 +24,14 @@ public class CSVStates
                     .build();
             Iterator<CSVStateCodePojo> csvStateCodePojoIterator = csvStateCodeBeanObject.iterator();
             while (csvStateCodePojoIterator.hasNext()) {
-                 CSVStateCodePojo csvStateCensus = csvStateCodePojoIterator.next();
+                CSVStateCodePojo csvStateCensus = csvStateCodePojoIterator.next();
                 totalRecords++;
             }
-        }catch(IOException e)
-        {
+        } catch (IOException e) {
             throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
-        }
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
         }
         return totalRecords;
     }
 }
-
-
-

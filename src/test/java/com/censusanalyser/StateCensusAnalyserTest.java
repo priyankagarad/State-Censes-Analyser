@@ -1,9 +1,9 @@
 package com.censusanalyser;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
-public class StateCensusAnalyserTest {
+public class StateCensusAnalyserTest
+{
     private static String DATA_CSV_FILE_PATH = "./src/test/resources/StateCensusData.csv";
     private static String IMPROPER_FILE_NAME = "./src/test/resources/StateCensusData1.csv";
     private static String IMPROPER_FILE_TYPE = "./src/test/resources/StateCensusData.txt";
@@ -12,13 +12,12 @@ public class StateCensusAnalyserTest {
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
     private static String WRONG_STATE_CODE_FILE = "./src/test/resources/StateCodeWrongFormat.csv";
 
-    StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(DATA_CSV_FILE_PATH);
-    CSVStates csvStates = new CSVStates();
+    StateCensusAnalyser stateCensusAnalyser=new StateCensusAnalyser();
 
     /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenTheStatesCensusCSVFile_whenNumberOfRecordMatch_shouldReturnTrue() throws IOException, StateCensusAnalyserException {
-        int totalRecords = stateCensusAnalyser.loadData();
+        int totalRecords = stateCensusAnalyser.loadIndianCensusData(DATA_CSV_FILE_PATH);
         Assert.assertEquals(29, totalRecords);
     }
 
@@ -27,8 +26,7 @@ public class StateCensusAnalyserTest {
     public void givenFileName_whenImproper_shouldThrowException() throws IOException {
         try
         {
-            stateCensusAnalyser = new StateCensusAnalyser(IMPROPER_FILE_NAME);
-            stateCensusAnalyser.loadData();
+            stateCensusAnalyser.loadIndianCensusData(IMPROPER_FILE_NAME);
         }
         catch (StateCensusAnalyserException e)
         {
@@ -38,50 +36,48 @@ public class StateCensusAnalyserTest {
 
     /* TC 1.3 : Given the State Census CSV File when correct but type incorrect Returns a custom Exception */
     @Test
-    public void givenTheStateCensusCSVFile_whenCorrectButTypeIncorrect_shouldReturnCustomException() throws IOException {
+    public void givenTheStateCensusCSVFile_whenCorrectButTypeIncorrect_shouldReturnCustomException() throws IOException
+    {
         try
         {
-            stateCensusAnalyser = new StateCensusAnalyser(IMPROPER_FILE_TYPE);
-            stateCensusAnalyser.loadData();
+            stateCensusAnalyser.loadIndianCensusData(IMPROPER_FILE_TYPE);
         }
         catch (StateCensusAnalyserException e)
         {
-           // e.printStackTrace();
+            Assert.assertEquals(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND, e.exceptionTypeObject);
         }
     }
 
     /* TC 1.4 : Given The state census File When Correct But Delimiter Incorrect Should Return Custom Exception */
     @Test
-    public void givenTheStateCensusFile_WhenCorrectButDelimiterIncorrect_shouldReturnCustomException() throws IOException {
+    public void givenTheStateCensusFile_WhenCorrectButDelimiterIncorrect_shouldReturnCustomException() throws IOException
+    {
         try
         {
-            stateCensusAnalyser = new StateCensusAnalyser(WRONG_DELIMITER1);
-            stateCensusAnalyser.loadData();
+            stateCensusAnalyser.loadIndianCensusData(WRONG_DELIMITER1);
         }
         catch (StateCensusAnalyserException e)
         {
-            e.printStackTrace();
+            Assert.assertEquals(StateCensusAnalyserException.exceptionType.INCORRECT_FILE,e.exceptionTypeObject);
         }
     }
-
     /* TC 1.5 : Given the State Census CSV File when correct but csv header incorrect Returns a custom Exception */
     @Test
     public void givenFileData_whenIncorrect_shouldThrowException() throws IOException {
         try
         {
-            stateCensusAnalyser = new StateCensusAnalyser(WRONG_FILE_FORMATE);
-            stateCensusAnalyser.loadData();
+            stateCensusAnalyser.loadIndianCensusData(WRONG_FILE_FORMATE);
         }
         catch (StateCensusAnalyserException e)
         {
-            e.printStackTrace();
+            Assert.assertEquals(StateCensusAnalyserException.exceptionType.INCORRECT_FILE, e.exceptionTypeObject);
         }
     }
     /* TC 2.1 :Check to ensure the Number of Record matches */
     @Test
     public void givenTotalRecordsFromStateCsvDataFile_whenMatch_shouldReturnTrue() throws StateCensusAnalyserException, IOException
     {
-        int totalRecords = csvStates.loadStateCodes(STATE_CODE_FILE);
+        int totalRecords = stateCensusAnalyser.loadStateCodes(STATE_CODE_FILE);
         Assert.assertEquals(37, totalRecords);
     }
 
@@ -91,7 +87,7 @@ public class StateCensusAnalyserTest {
     {
         try
         {
-            csvStates.loadStateCodes(IMPROPER_FILE_NAME);
+            stateCensusAnalyser.loadStateCodes(IMPROPER_FILE_NAME);
         }
         catch (StateCensusAnalyserException e)
         {
@@ -103,7 +99,7 @@ public class StateCensusAnalyserTest {
     public void givenStateCodeCSVFileType_whenIncorrect_shouldThrowException() throws IOException {
         try
         {
-            csvStates.loadStateCodes(IMPROPER_FILE_TYPE);
+            stateCensusAnalyser.loadStateCodes(IMPROPER_FILE_TYPE);
         }
         catch (StateCensusAnalyserException e)
         {
@@ -115,7 +111,7 @@ public class StateCensusAnalyserTest {
     public void givenStateCodeCSVFileData_whenIncorrect_shouldThrowException() throws IOException {
         try
         {
-            csvStates.loadStateCodes(WRONG_STATE_CODE_FILE);
+            stateCensusAnalyser.loadStateCodes(WRONG_STATE_CODE_FILE);
         }
         catch (StateCensusAnalyserException e)
         {

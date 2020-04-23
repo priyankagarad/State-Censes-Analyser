@@ -1,6 +1,6 @@
 package com.censusanalyser;
 import com.opencsv.bean.CsvBindByName;
-public class CSVStateCensus
+public class CSVStateCensusPojo
 {
     @CsvBindByName(column = "State")
     private String State;
