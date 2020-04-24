@@ -1,16 +1,19 @@
 package com.bl.censusanalyzer;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
 import com.bl.model.CSVStateCode;
-//import com.censusanalyser.CSVState;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.Iterator;
+
 import static java.nio.file.Files.newBufferedReader;
 
-public class CSVState {
+//import com.censusanalyser.CSVState;
+
+public class CSVState
+{
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
 
     public static void main(String args[]) throws IOException, StateCensusAnalyserException {
@@ -30,9 +33,7 @@ public class CSVState {
                 totalRecords++;
             }
         } catch (IOException e) {
-            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
-        } catch (RuntimeException e) {
-            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
+            throw new StateCensusAnalyserException(e.getMessage(),StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
         }
         return totalRecords;
     }

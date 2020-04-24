@@ -1,4 +1,5 @@
 package com.bl.censusanalyzer;
+import com.bl.censusanalyser.exception.CSVBuilderException;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -6,8 +7,7 @@ import java.io.Reader;
 import java.util.Iterator;
 public class CSVBuilder implements ICSVBuilder
 {
-    public <E> Iterator<E> getFileIterator(Reader reader, Class<E> csvClass)
-    {
+    public <E> Iterator<E> getFileIterator(Reader reader, Class<E> csvClass) throws CSVBuilderException {
         try
         {
             CsvToBeanBuilder csvToBeanBuilder = new CsvToBeanBuilder(reader);
@@ -18,7 +18,7 @@ public class CSVBuilder implements ICSVBuilder
         }
         catch (RuntimeException e)
         {
-            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
+            throw new CSVBuilderException(e.getMessage(), StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
         }
     }
 }

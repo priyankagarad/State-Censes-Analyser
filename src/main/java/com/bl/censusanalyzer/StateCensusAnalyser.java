@@ -1,4 +1,5 @@
 package com.bl.censusanalyzer;
+import com.bl.censusanalyser.exception.CSVBuilderException;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
 import java.io.IOException;
 import java.io.Reader;
@@ -6,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
 import static java.nio.file.Files.newBufferedReader;
-
 public class StateCensusAnalyser<T>
 {
     public int loadIndianData(String csvFilePath,Object T)
@@ -24,11 +24,11 @@ public class StateCensusAnalyser<T>
         }
         catch (IOException e)
         {
-            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
+            throw new StateCensusAnalyserException(e.getMessage(),StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND);
         }
-        catch (RuntimeException e)
+        catch (CSVBuilderException e)
         {
-            throw new StateCensusAnalyserException(StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
+            throw new StateCensusAnalyserException(e.getMessage(),e.type.name());
         }
         return totalRecords;
     }

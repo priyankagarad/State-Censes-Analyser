@@ -89,7 +89,6 @@ public class StateCensusAnalyserTest
             e.printStackTrace();
         }
     }
-
         /* TC 2.2 :test to check if StateCensusData file is incorrect */
     @Test
     public void givenStateCodeCSVFileName_whenImproper_shouldThrowException() throws IOException
