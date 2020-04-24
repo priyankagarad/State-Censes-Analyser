@@ -1,11 +1,12 @@
 package com.bl.censusanalyzer;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.bl.censusanalyser.utility.CSVBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.stream.StreamSupport;
+
 import static java.nio.file.Files.newBufferedReader;
 
 public class StateCensusAnalyser<T>
@@ -15,7 +16,7 @@ public class StateCensusAnalyser<T>
         int totalRecords = 0;
         try (Reader reader = newBufferedReader(Paths.get(csvFilePath));)
         {
-            Iterator<T> csvStateCensusIterator = (Iterator<T>) this.getFileIterator(reader,T.getClass());
+            Iterator<T> csvStateCensusIterator = (Iterator<T>) new CSVBuilder().getFileIterator(reader,T.getClass());
             while (csvStateCensusIterator.hasNext())
             {
                 csvStateCensusIterator.next();
@@ -32,13 +33,10 @@ public class StateCensusAnalyser<T>
         }
         return totalRecords;
     }
-    //OPen Csv Method
-    public <E> Iterator<E> getFileIterator(Reader reader, Class<E> csvClass)
+    private <E> int getCount(Iterator<E> iterator)
     {
-        CsvToBeanBuilder csvToBeanBuilder = new CsvToBeanBuilder(reader);
-        csvToBeanBuilder.withType(csvClass);
-        csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-        CsvToBean csvToBean = csvToBeanBuilder.build();
-        return csvToBean.iterator();
+        Iterable<E> iterable=() -> iterator;
+        int totalRecords=(int) StreamSupport.stream(iterable.spliterator(),false).count();
+        return totalRecords;
     }
 }

@@ -1,5 +1,4 @@
 package com.bl.censusanalyser.exception;
-
 public class StateCensusAnalyserException extends RuntimeException
     {
         public enum  exceptionType
