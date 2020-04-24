@@ -1,4 +1,7 @@
-package com.censusanalyser;
+package com.bl.censusanalyzer;
+import com.bl.censusanalyser.exception.StateCensusAnalyserException;
+import com.bl.model.CSVStateCode;
+//import com.censusanalyser.CSVState;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
@@ -7,24 +10,23 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import static java.nio.file.Files.newBufferedReader;
 
-public class CSVStates {
+public class CSVState {
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
 
     public static void main(String args[]) throws IOException, StateCensusAnalyserException {
-        CSVStates csvState = new CSVStates();
+        CSVState csvState = new CSVState();
         csvState.loadStateCodes(STATE_CODE_FILE);
     }
-
     public int loadStateCodes(String FILE_PATH) throws IOException, StateCensusAnalyserException {
         int totalRecords = 0;
         try (Reader reader = newBufferedReader(Paths.get(FILE_PATH))) {
-            CsvToBean<CSVStateCodePojo> csvStateCodeBeanObject = new CsvToBeanBuilder(reader)
-                    .withType(CSVStateCodePojo.class)
+            CsvToBean<CSVStateCode> csvStateCodeBeanObject = new CsvToBeanBuilder(reader)
+                    .withType(CSVStateCode.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-            Iterator<CSVStateCodePojo> csvStateCodePojoIterator = csvStateCodeBeanObject.iterator();
+            Iterator<CSVStateCode> csvStateCodePojoIterator = csvStateCodeBeanObject.iterator();
             while (csvStateCodePojoIterator.hasNext()) {
-                CSVStateCodePojo csvStateCensus = csvStateCodePojoIterator.next();
+                CSVStateCode csvStateCensus = csvStateCodePojoIterator.next();
                 totalRecords++;
             }
         } catch (IOException e) {
@@ -35,3 +37,4 @@ public class CSVStates {
         return totalRecords;
     }
 }
+
