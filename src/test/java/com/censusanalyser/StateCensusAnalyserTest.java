@@ -116,7 +116,7 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /*TC 2.4/2.5 test to check if StateCensus Data file is correct but Header and Delimiter is incorrect */
+    /* TC 2.4/2.5 test to check if StateCensus Data file is correct but Header and Delimiter is incorrect */
     @Test
     public void givenStateCodeCSVFileData_whenIncorrect_shouldThrowException() throws IOException {
         try
