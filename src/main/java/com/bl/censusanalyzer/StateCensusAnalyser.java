@@ -38,7 +38,7 @@ public class StateCensusAnalyser<T>
         return totalRecords;
     }
 
-    public String getSortedStateCensusData(Object T) throws StateCensusAnalyserException
+    public String getSortData(Object T) throws StateCensusAnalyserException
     {
         if (csvFileList.size() == 0 | csvFileList == null)
         {
@@ -49,7 +49,6 @@ public class StateCensusAnalyser<T>
         String stateCensusSortedJson = new Gson().toJson(csvFileList);
         return stateCensusSortedJson;
     }
-    
     public void sort(Comparator<T> censusComparator)
     {
         for (int i = 0; i < csvFileList.size(); i++)
