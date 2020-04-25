@@ -4,15 +4,16 @@ import com.bl.censusanalyser.exception.StateCensusAnalyserException;
 import com.bl.censusanalyzer.StateCensusAnalyser;
 import com.bl.model.CSVStateCensus;
 import com.bl.model.CSVStateCode;
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import static com.bl.censusanalyzer.FilePath.*;
-
 public class StateCensusAnalyserTest
 {
     StateCensusAnalyser stateCensusAnalyser;
+
     @Before
     public void setUp()
     {
@@ -135,4 +136,18 @@ public class StateCensusAnalyserTest
             Assert.assertEquals(StateCensusAnalyserException.exceptionType.INCORRECT_FILE, e.exceptionTypeObject);
         }
     }
+    /* test to check census data is sorted in Json format */
+    @Test
+    public void givenStateCensusData_whenSortedOnStates_shouldReturnSortedResult() throws  CSVBuilderException {
+        try {
+            stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH,CSVStateCensus.class);
+            String sortedStateCensusData = stateCensusAnalyser.getSortedStateCensusData(CSVStateCensus.class);
+            CSVStateCensus[] csvStateCensus = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
+            Assert.assertEquals("Andhra Pradesh",csvStateCensus[0].getState());
+            Assert.assertEquals("West Bengal",csvStateCensus[28].getState());
+        } catch (StateCensusAnalyserException e) {
+            Assert.assertEquals(StateCensusAnalyserException.exceptionType.INCORRECT_FILE, e.exceptionTypeObject);
+        }
+    }
 }
+
