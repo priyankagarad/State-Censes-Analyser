@@ -12,8 +12,4 @@ public class CSVBuilderException extends Throwable
         super(message);
         this.type=type;
     }
-  /* public CSVBuilderException(String message, StateCensusAnalyserException.exceptionType type, Throwable cause) {
-        super(message, cause);
-        this.type = type;
-    }*/
 }
