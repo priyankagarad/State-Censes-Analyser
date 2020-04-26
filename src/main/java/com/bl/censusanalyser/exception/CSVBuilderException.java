@@ -12,4 +12,8 @@ public class CSVBuilderException extends Throwable
         super(message);
         this.type=type;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Refactor7

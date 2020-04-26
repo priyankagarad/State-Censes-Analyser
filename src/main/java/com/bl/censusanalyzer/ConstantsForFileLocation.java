@@ -1,5 +1,5 @@
 package com.bl.censusanalyzer;
-public class FilePath {
+public class ConstantsForFileLocation {
     public static String DATA_CSV_FILE_PATH = "./src/test/resources/StateCensusData.csv";
     public static String IMPROPER_FILE_NAME = "./src/test/resources/StateCensusData1.csv";
     public static String IMPROPER_FILE_TYPE = "./src/test/resources/StateCensusData.txt";
