@@ -14,7 +14,6 @@ public class StateCensusAnalyser<T>
 {
     List<T> csvFileList=null;
     Map<String,T> csvStateCodeMap = new HashMap<>();
-
     /* Read State Census Data CSV file */
     public int loadIndianData(String csvFilePath, Class<T> csvClass) throws CSVBuilderException
     {
@@ -26,7 +25,7 @@ public class StateCensusAnalyser<T>
             Iterable<T> csvFileIterable =()-> csvStateCensusIterator;
             while (csvStateCensusIterator.hasNext()) {
                 CSVStateCensusDAO value =new CSVStateCensusDAO((CSVStateCensus) csvStateCensusIterator.next());
-                this.csvStateCodeMap.put(value.state, (T) value);
+                this.csvStateCodeMap.put(value.getState(), (T) value);
                 csvFileList = csvStateCodeMap.values().stream().collect(Collectors.toList());
             }
             int totalRecords = csvStateCodeMap.size();
@@ -40,7 +39,6 @@ public class StateCensusAnalyser<T>
             throw new StateCensusAnalyserException(e.getMessage(),StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
         }
     }
-
     /* Count The Number Of Record in Csv File */
     public  <E> int getCount(Iterator<E> iterator)
     {
@@ -48,7 +46,6 @@ public class StateCensusAnalyser<T>
         int totalRecords=(int) StreamSupport.stream(iterable.spliterator(),false).count();
         return totalRecords;
     }
-
     /* Sort The Data From Csv File */
     public String getSortData(Object T) throws StateCensusAnalyserException
     {
@@ -61,7 +58,7 @@ public class StateCensusAnalyser<T>
         String sortedData =new Gson().toJson(csvFileList);
         return  sortedData;
     }
-    public void sort(List<T> csvFileList,Comparator<T> censusComparator)
+        public void sort(List<T> csvFileList,Comparator<T> censusComparator)
     {
         for (int i = 0; i < csvFileList.size(); i++)
         {

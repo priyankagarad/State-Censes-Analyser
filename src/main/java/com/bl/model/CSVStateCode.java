@@ -3,37 +3,37 @@ import com.opencsv.bean.CsvBindByName;
 public class CSVStateCode
 {
     @CsvBindByName(column = "SrNo")
-    private int SrNo;
+    private String SrNo;
     @CsvBindByName(column = "StateName")
-    private int StateName;
+    private String StateName;
     @CsvBindByName(column = "StateCode")
     private String StateCode;
     @CsvBindByName(column = "TTN")
-    private int TTN;
+    private String TTN;
 
-    public int getSrNo()
+    public String getSrNo()
     {
         return SrNo;
     }
 
-    public void setSrNo(int SrNo)
+    public void setSrNo(String SrNo)
     {
         this.SrNo=SrNo;
     }
 
-    public int getStateName()
+    public String getStateName()
     {
         return StateName;
     }
-    public void setStateName(int StateName)
+    public void setStateName(String StateName)
     {
         this.StateName=StateName;
     }
-    public int getTIN()
+    public String getTIN()
     {
         return TTN;
     }
-    public void setTTN(int TTN)
+    public void setTTN(String TTN)
     {
         this.TTN=TTN;
     }
@@ -43,6 +43,6 @@ public class CSVStateCode
     }
     public void setStateCode(String StateCode)
     {
-        StateCode=StateCode;
+        this.StateCode=StateCode;
     }
 }
