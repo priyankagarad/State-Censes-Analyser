@@ -11,7 +11,7 @@ public class CSVBuilder implements ICSVBuilder
     @Override
     public <E> Iterator<E> getFileIterator(Reader reader,Class<E> csvClass) throws CSVBuilderException
     {
-        return this.getCSVBean(reader, csvClass).iterator();
+        return this.getCSVBean(reader,csvClass).iterator();
     }
     @Override
     public <E> List <E> getFileList(Reader reader, Class<E> csvClass) throws CSVBuilderException

@@ -4,9 +4,9 @@ import com.bl.model.CSVStateCode;
 public class CSVStateCensusDAO
 {
     public String state;
-    public int densityPerSqKm;
-    public int areaInSqKm;
-    public int population;
+    public String densityPerSqKm;
+    public String areaInSqKm;
+    public String population;
     public String stateCode;
 
     public CSVStateCensusDAO(CSVStateCensus indiaCensusCSV)
