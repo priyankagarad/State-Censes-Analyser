@@ -157,4 +157,16 @@ public class StateCensusAnalyserTest {
             e.printStackTrace();
         }
     }
+    /* TC : 7 test to check census data is sorted in Json format according to Area Wise */
+    @Test
+    public void givenStateCensusData_whenSortedOnAreaWise_shouldReturnSortedResult() throws CSVBuilderException {
+        try {
+            stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVStateCensus.class);
+            String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVStateCensusDAO.class);
+            CSVStateCensus[] csvStateCensusPojo = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
+            Assert.assertEquals(94163, csvStateCensusPojo[0].getAreaInSqKm());
+        } catch (StateCensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
