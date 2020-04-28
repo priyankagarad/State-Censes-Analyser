@@ -1,7 +1,6 @@
 package com.bl.censusanalyzer;
 import com.bl.censusanalyser.exception.CSVBuilderException;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
-import com.bl.model.CSVStateCensus;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.stream.StreamSupport;
 public class StateCensusAnalyser<T>
 {
     List<T> csvFileList=null;
-    Map<String,T> csvStateCodeMap = new HashMap<>();
+    Map<Object,T> csvStateCodeMap = new HashMap<>();
     /* Read State Census Data CSV file */
     public int loadIndianData(String csvFilePath, Class<T> csvClass) throws CSVBuilderException
     {
@@ -22,13 +21,15 @@ public class StateCensusAnalyser<T>
             BufferedReader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder icsvBuilder=CSVBuilderFactory.icsBuilder();
             Iterator<T> csvStateCensusIterator = icsvBuilder.getFileIterator(reader, csvClass);
-            Iterable<T> csvFileIterable =()-> csvStateCensusIterator;
-            while (csvStateCensusIterator.hasNext()) {
-                CSVStateCensusDAO value =new CSVStateCensusDAO((CSVStateCensus) csvStateCensusIterator.next());
-                this.csvStateCodeMap.put(value.getState(), (T) value);
-                csvFileList = csvStateCodeMap.values().stream().collect(Collectors.toList());
-            }
-            int totalRecords = csvStateCodeMap.size();
+             Iterable<T> stateCensusIterable = () -> csvStateCensusIterator;
+             StreamSupport.stream(stateCensusIterable.spliterator(), false)
+                    .forEach(
+                            stateCensusCSV -> {
+                                csvStateCodeMap.put(stateCensusCSV, (T) new CSVStateCensusDAO<T>(csvClass));
+                            });
+             csvFileList = csvStateCodeMap.values().stream().collect(Collectors.toList());
+             int totalRecords = csvStateCodeMap.size();
+             System.out.println(totalRecords);
             return totalRecords;
         } catch (IOException e)
         {
@@ -46,6 +47,7 @@ public class StateCensusAnalyser<T>
         int totalRecords=(int) StreamSupport.stream(iterable.spliterator(),false).count();
         return totalRecords;
     }
+
     /* Sort The Data From Csv File */
     public String getSortData(Object T) throws StateCensusAnalyserException
     {

@@ -22,9 +22,9 @@ public class CSVBuilder implements ICSVBuilder
     {
         try
         {
-            CsvToBeanBuilder csvToBeanBuilder = new CsvToBeanBuilder(reader);
+            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
             csvToBeanBuilder.withType(csvClass);
-            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+          //  csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             return csvToBeanBuilder.build();
         }
         catch (RuntimeException e)

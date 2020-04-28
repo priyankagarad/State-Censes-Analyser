@@ -7,4 +7,6 @@ public class ConstantsForFileLocation {
     public static String WRONG_FILE_FORMATE = "./src/test/resources/DelimiterIncorrect.csv";
     public static String STATE_CODE_FILE = "./src/test/resources/StateCode.csv";
     public static String WRONG_STATE_CODE_FILE = "./src/test/resources/StateCodeWrongFormat.csv";
+    public static String US_CSV_FILE_PATH = "./src/test/resources/USCensusData.csv";
+
 }
