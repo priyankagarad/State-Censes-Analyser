@@ -28,10 +28,7 @@ public class StateCensusAnalyserTest
         try {
             int totalRecords = stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVStateCensus.class);
             Assert.assertEquals(29, totalRecords);
-           /* int count = stateCensusAnalyser.loadIndianData(STATE_CODE_FILE, CSVStateCensus.class);
-            Assert.assertEquals(37, count);*/
         } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     /* TC 1.2 : Given the State Census CSV File if incorrect Returns a custom Exception */
@@ -78,7 +75,6 @@ public class StateCensusAnalyserTest
             int totalRecords = stateCensusAnalyser.loadIndianData(STATE_CODE_FILE, CSVStateCode.class);
             Assert.assertEquals(37, totalRecords);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     /* TC 2.2 :test to check if StateCensusData file is incorrect */
@@ -115,10 +111,8 @@ public class StateCensusAnalyserTest
             stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVStateCensus.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVStateCensus.class);
             CSVStateCensus[] csvStateCensus = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
-           // Assert.assertEquals("Andhra Pradesh",csvStateCensus[0].getState());
-            //Assert.assertEquals("West Bengal",csvStateCensus[0].getState());
+            Assert.assertEquals("Bihar",csvStateCensus[0].getState());
         } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     /* TC : 4 test to check census data is sorted in Json format according to State code */
@@ -131,7 +125,6 @@ public class StateCensusAnalyserTest
             Assert.assertEquals("AD", csvStateCodePojo[1].getStateCode());
             Assert.assertEquals("WB", csvStateCodePojo[37].getStateCode());
         } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     /* TC : 5 test to check census data is sorted in Json format according to Population name */
@@ -143,7 +136,7 @@ public class StateCensusAnalyserTest
             CSVStateCensus[] csvStateCensus = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
             Assert.assertEquals(199812341, csvStateCensus[0].getPopulation());
         } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
    /* TC 6 : test to check census data is sorted in Json format according to Density */
@@ -153,11 +146,9 @@ public class StateCensusAnalyserTest
         try {
             stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH,CSVStateCensus.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(DATA_CSV_FILE_PATH);
-            System.out.println(sortedStateCensusData);
             CSVStateCensus[] csvStateCensus = new Gson().fromJson(sortedStateCensusData,CSVStateCensus[].class);
             Assert.assertEquals(1102, csvStateCensus[0].getDensityPerSqKm());
            } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     /* TC : 7 test to check census data is sorted in Json format according to Area Wise */
@@ -166,11 +157,9 @@ public class StateCensusAnalyserTest
         try {
             stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVStateCensus.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVStateCensusDAO.class);
-            System.out.println(sortedStateCensusData);
             CSVStateCensus[] csvStateCensusPojo = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
             Assert.assertEquals(94163, csvStateCensusPojo[0].getAreaInSqKm());
         } catch (StateCensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
     //TC: 8 Test Ensure Number Of Records Matches of USCensusData
@@ -179,11 +168,8 @@ public class StateCensusAnalyserTest
     {
         try {
             int totalRecords=stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH, CSVUSCensusData.class);
-            System.out.println(totalRecords);
             Assert.assertEquals(51,totalRecords);
-        }catch (StateCensusAnalyserException e)
-        {
-
+        }catch (StateCensusAnalyserException e) {
         }
     }
 }
