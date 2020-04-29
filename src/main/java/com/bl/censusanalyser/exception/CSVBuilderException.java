@@ -5,7 +5,6 @@ public class CSVBuilderException extends Throwable {
         INCORRECT_FILE
     }
     public StateCensusAnalyserException.exceptionType type;
-
     public CSVBuilderException(String message, StateCensusAnalyserException.exceptionType type) {
         super(message);
         this.type = type;

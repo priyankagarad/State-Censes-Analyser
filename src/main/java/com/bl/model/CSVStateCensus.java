@@ -43,4 +43,14 @@ public class CSVStateCensus<E>
     {
         DensityPerSqKm = densityPerSqKm;
     }
+
+    @Override
+    public String toString() {
+        return "CSVStateCensus{" +
+                "State='" + State + '\'' +
+                ", Population=" + Population +
+                ", AreaInSqKm=" + AreaInSqKm +
+                ", DensityPerSqKm=" + DensityPerSqKm +
+                '}';
+    }
 }

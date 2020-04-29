@@ -10,36 +10,28 @@ public class CSVStateCode<E>
     private String StateCode;
     @CsvBindByName(column = "TTN")
     private String TIN;
-
     public String getSrNo() {
         return SrNo;
     }
-
     public void setSrNo(String srNo) {
         SrNo = srNo;
     }
-
     public String getStateName() {
         return StateName;
     }
-
     public void setStateName(String stateName) {
         StateName = stateName;
     }
-
     public String getStateCode() {
         return StateCode;
     }
-
     public void setStateCode(String stateCode) {
         StateCode = stateCode;
     }
-
-    public String getTTN() {
+    public String getTIN() {
         return TIN;
     }
-
-    public void setTTN(String TTN) {
+    public void setTTN(String TIN) {
         this.TIN = TIN;
     }
 }
