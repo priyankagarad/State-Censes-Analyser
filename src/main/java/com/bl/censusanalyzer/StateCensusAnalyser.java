@@ -1,6 +1,9 @@
 package com.bl.censusanalyzer;
+import com.bl.builder.CSVBuilderFactory;
+import com.bl.builder.ICSVBuilder;
 import com.bl.censusanalyser.exception.CSVBuilderException;
 import com.bl.censusanalyser.exception.StateCensusAnalyserException;
+import com.bl.dao.CSVStateCensusDAO;
 import com.bl.model.CSVStateCensus;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -42,22 +45,23 @@ public class StateCensusAnalyser<T> {
     }
 
     /* Sort The Data From Csv File */
-    public String getSortData(Object T) throws StateCensusAnalyserException {
+    public String getSortData(Object T,int Number) throws StateCensusAnalyserException {
         if (csvFileList.size() == 0 | csvFileList == null) {
             throw new StateCensusAnalyserException("No Census Data", StateCensusAnalyserException.exceptionType.NO_CENSUS_DATA);
         }
         Comparator<T> stateCensusAnalyserComparator = Comparator.comparing(csvCounter -> T.toString());
-        this.sort(csvFileList, stateCensusAnalyserComparator);
+        this.sort(csvFileList, Number);
         String sortedData = new Gson().toJson(csvFileList);
         return sortedData;
+
     }
         /*Sorting Method */
-        public void sort(List<T> csvFileList,Comparator<T> censusComparator) {
+        public void sort(List<T> csvFileList,int number) {
             for (int i = 0; i < csvFileList.size(); i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
                 String census1[] = csvFileList.get(i).toString().split(",");
                 String census2[] =csvFileList.get(j).toString().split(",");
-                if (census1[0].compareToIgnoreCase(census2[0])<0)
+                if (census1[1].compareToIgnoreCase(census2[1])<0)
                 {
                     T censusData = csvFileList.get(i);
                     T censusData1 = csvFileList.get(j);

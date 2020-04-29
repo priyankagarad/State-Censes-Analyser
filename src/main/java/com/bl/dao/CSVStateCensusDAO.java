@@ -1,10 +1,10 @@
-package com.bl.censusanalyzer;
+package com.bl.dao;
 import com.bl.model.CSVStateCensus;
 import com.bl.model.CSVStateCode;
 import com.bl.model.CSVUSCensusData;
 public class CSVStateCensusDAO
 {
-    private String SrNo;
+   private String SrNo;
     private String State;
     private String StateName;
     private int Population;
@@ -20,6 +20,7 @@ public class CSVStateCensusDAO
     private String WaterArea;
     private String LandArea;
     private String HousingDensity;
+    private int TotalArea;
 
     CSVStateCensus indianStateCode;
     CSVStateCode stateCodee;
@@ -151,14 +152,15 @@ public class CSVStateCensusDAO
                 "," + StateCode +
                 "," + TIN +
                 "," + indianStateCode +
-                ", " + stateCodee +
+                //", " + stateCodee +
                  "," + StateID +
                 "," + PopulationDensity +
                 "," + Area +
                 "," + HousingUnits +
                 "," + WaterArea +
                 "," + LandArea +
-                "," + HousingDensity ;
+                "," + HousingDensity +
+                "," + TotalArea ;
     }
 }
 
