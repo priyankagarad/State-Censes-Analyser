@@ -18,8 +18,7 @@ public class StateCensusAnalyserTest {
     ConstantsForFileLocation constant;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         stateCensusAnalyser = new StateCensusAnalyser();
     }
 
@@ -190,7 +189,7 @@ public class StateCensusAnalyserTest {
     @Test
     public void givenCensusCSVData_WhenSorted_ThenReturnSortedStartPopulationState() throws CSVBuilderException {
         try {
-            stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH, CSVStateCensus.class);
+            stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH,CSVUSCensusData.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVStateCensus.class, 3);
             CSVStateCensus[] csvStateCensus = new Gson().fromJson(sortedStateCensusData, CSVStateCensus[].class);
             Assert.assertEquals("Alabama", csvStateCensus[0].getState());
@@ -198,7 +197,7 @@ public class StateCensusAnalyserTest {
         }
     }
 
-    // test to check US census data is sorted in Json format according to Density Wise
+    /* TC :10.1 test to check US census data is sorted in Json format according to Density Wise */
     @Test
     public void givenUSStateCensusData_whenSortedOnDensityWise_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -211,7 +210,7 @@ public class StateCensusAnalyserTest {
         }
     }
 
-    /* test to check US census data is sorted in Json format according to Area Wise */
+    /* TC:10.2 test to check US census data is sorted in Json format according to Area Wise */
     @Test
     public void givenUSStateCensusData_whenSortedOnAreaWise_shouldReturnSortedResult() throws CSVBuilderException {
         try {
