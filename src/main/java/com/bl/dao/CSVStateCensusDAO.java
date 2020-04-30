@@ -152,7 +152,6 @@ public class CSVStateCensusDAO
                 "," + StateCode +
                 "," + TIN +
                 "," + indianStateCode +
-                //", " + stateCodee +
                  "," + StateID +
                 "," + PopulationDensity +
                 "," + Area +

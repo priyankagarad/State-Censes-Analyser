@@ -36,6 +36,7 @@ public class StateCensusAnalyser<T> {
             throw new StateCensusAnalyserException(e.getMessage(), StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
         }
     }
+
     /* Count The Number Of Record in Csv File */
     public <E> int getCount(Iterator<E> iterator) {
         Iterable<E> iterable = () -> iterator;
@@ -52,7 +53,6 @@ public class StateCensusAnalyser<T> {
         this.sort(csvFileList, Number);
         String sortedData = new Gson().toJson(csvFileList);
         return sortedData;
-
     }
         /*Sorting Method */
         public void sort(List<T> csvFileList,int number) {
@@ -60,8 +60,7 @@ public class StateCensusAnalyser<T> {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
                 String census1[] = csvFileList.get(i).toString().split(",");
                 String census2[] =csvFileList.get(j).toString().split(",");
-                if (census1[1].compareToIgnoreCase(census2[1])<0)
-                {
+                if (census1[1].compareToIgnoreCase(census2[1])>0) {
                     T censusData = csvFileList.get(i);
                     T censusData1 = csvFileList.get(j);
                     csvFileList.set(j, censusData);
