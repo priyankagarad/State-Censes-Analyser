@@ -36,7 +36,6 @@ public class StateCensusAnalyser<T> {
             throw new StateCensusAnalyserException(e.getMessage(), StateCensusAnalyserException.exceptionType.INCORRECT_FILE);
         }
     }
-
     /* Count The Number Of Record in Csv File */
     public <E> int getCount(Iterator<E> iterator) {
         Iterable<E> iterable = () -> iterator;
