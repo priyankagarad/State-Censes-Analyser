@@ -15,42 +15,19 @@ public class CSVStateCensus<E>
     {
         return State;
     }
-    public void setState(String state)
-    {
-        this.State = state;
-    }
+
     public int getPopulation()
     {
         return Population;
     }
-    public void setPopulation(int population)
-    {
-        this.Population = population;
-    }
+
     public int getAreaInSqKm()
     {
         return AreaInSqKm;
     }
-    public void setAreaInSqKm(int areaInSqKm)
-    {
-        AreaInSqKm = areaInSqKm;
-    }
+
     public int getDensityPerSqKm()
     {
         return DensityPerSqKm;
-    }
-    public void setDensityPerSqKm(int densityPerSqKm)
-    {
-        DensityPerSqKm = densityPerSqKm;
-    }
-
-    @Override
-    public String toString() {
-        return "CSVStateCensus{" +
-                "State='" + State + '\'' +
-                ", Population=" + Population +
-                ", AreaInSqKm=" + AreaInSqKm +
-                ", DensityPerSqKm=" + DensityPerSqKm +
-                '}';
     }
 }

@@ -12,12 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 public class StateCensusAnalyser<T> {
     List<T> csvFileList = null;
     Map<Object, T> csvStateCodeMap = new HashMap<>();
 
-    /* Read State Census Data CSV file */
     public int loadIndianData(String csvFilePath, Class<T> csvClass) throws CSVBuilderException {
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -37,14 +35,6 @@ public class StateCensusAnalyser<T> {
         }
     }
 
-    /* Count The Number Of Record in Csv File */
-    public <E> int getCount(Iterator<E> iterator) {
-        Iterable<E> iterable = () -> iterator;
-        int totalRecords = (int) StreamSupport.stream(iterable.spliterator(), false).count();
-        return totalRecords;
-    }
-
-    /* Sort The Data From Csv File */
     public String getSortData(Object T,int Number) throws StateCensusAnalyserException {
         if (csvFileList.size() == 0 | csvFileList == null) {
             throw new StateCensusAnalyserException("No Census Data", StateCensusAnalyserException.exceptionType.NO_CENSUS_DATA);
@@ -54,13 +44,12 @@ public class StateCensusAnalyser<T> {
         String sortedData = new Gson().toJson(csvFileList);
         return sortedData;
     }
-        /*Sorting Method */
         public void sort(List<T> csvFileList,int number) {
             for (int i = 0; i < csvFileList.size(); i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
                 String census1[] = csvFileList.get(i).toString().split(",");
                 String census2[] =csvFileList.get(j).toString().split(",");
-                if (census1[1].compareToIgnoreCase(census2[1])>0) {
+                if (census1[number].compareToIgnoreCase(census2[number])>0) {
                     T censusData = csvFileList.get(i);
                     T censusData1 = csvFileList.get(j);
                     csvFileList.set(j, censusData);
