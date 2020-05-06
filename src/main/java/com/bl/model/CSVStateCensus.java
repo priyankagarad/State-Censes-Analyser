@@ -31,3 +31,4 @@ public class CSVStateCensus<E>
         return DensityPerSqKm;
     }
 }
+

@@ -6,10 +6,10 @@ import com.bl.dao.CSVStateCensusDAO;
 import com.bl.model.CSVStateCensus;
 import com.bl.model.CSVStateCode;
 import com.bl.model.CSVUSCensusData;
+import org.junit.Test;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import java.io.IOException;
 import static com.bl.censusanalyzer.FileUtility.*;
 public class StateCensusAnalyserTest
@@ -73,6 +73,7 @@ public class StateCensusAnalyserTest
             Assert.assertEquals(StateCensusAnalyserException.exceptionType.FILE_NOT_FOUND, e.exceptionTypeObject);
         }
     }
+
     /* TC 2.4/2.05 test to check if StateCensus Data file is correct but Header and Delimiter is incorrect */
     @Test
     public void givenStateCodeCSVFileData_whenIncorrect_shouldThrowException() throws IOException, CSVBuilderException {
@@ -192,24 +193,18 @@ public class StateCensusAnalyserTest
 
     /* Dual Sorting for US and india */
     @Test
-    public void givenIndianStateData_whenFirstSortByPopulationDensity_ShouldReturnSortedResult() throws CSVBuilderException {
+    public void givenUsAndIndiaCensusData_WhenSorted_ThenShouldReturnSortedResult() throws CSVBuilderException {
         try {
-            stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVUSCensusData.class);
-            String sortedCensusData = stateCensusAnalyser.getSortData(CSVUSCensusData.class, 1);
-            CSVStateCensusDAO[] usCensusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensusDAO[].class);
-            Assert.assertEquals("Uttar Pradesh", usCensusCSV[0].getState());
-        } catch (StateCensusAnalyserException e) {
-        }
-    }
+            stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH,CSVStateCensus.class);
+            String sortedData = stateCensusAnalyser.getSortData(CSVStateCensus.class,1);
+            CSVStateCensusDAO[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData,CSVStateCensusDAO[].class);
+            Assert.assertEquals(1980602, indianStateCensesAnalyzers[28].getPopulation());
 
-    @Test
-    public void givenUSStateData_whenFirstSortByOnPopulationDensity_ShouldReturnSortedResult() throws CSVBuilderException {
-        try {
-            stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH, CSVStateCensus.class);
-            String sortedCensusData = stateCensusAnalyser.getSortData(CSVUSCensusData.class, 5);
-            CSVStateCensusDAO[] usCensusCSV = new Gson().fromJson(sortedCensusData, CSVStateCensusDAO[].class);
-            Assert.assertEquals("North Carolina", usCensusCSV[0].getState());
-        } catch (StateCensusAnalyserException e) {
+            stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH,CSVUSCensusData.class);
+            String UssortedData = stateCensusAnalyser.getSortData(CSVUSCensusData.class,5);
+            CSVStateCensusDAO[] USStateCensesAnalyzers = new Gson().fromJson(UssortedData, CSVStateCensusDAO[].class);
+            Assert.assertEquals(3805, USStateCensesAnalyzers[50].getPopulationDensity()); }
+        catch (StateCensusAnalyserException e) {
         }
     }
 }

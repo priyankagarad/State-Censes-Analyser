@@ -39,7 +39,6 @@ public class StateCensusAnalyser<T> {
         if (csvFileList.size() == 0 | csvFileList == null) {
             throw new StateCensusAnalyserException("No Census Data", StateCensusAnalyserException.exceptionType.NO_CENSUS_DATA);
         }
-        Comparator<T> stateCensusAnalyserComparator = Comparator.comparing(csvCounter -> T.toString());
         this.sort(csvFileList, Number);
         String sortedData = new Gson().toJson(csvFileList);
         return sortedData;
