@@ -11,6 +11,7 @@ public class CSVBuilder implements ICSVBuilder
     public <E> Iterator<E> getFileIterator(Reader reader,Class<E> csvClass) throws CSVBuilderException {
         return this.getCSVBean(reader,csvClass).iterator();
     }
+
     public <E> CsvToBean<E> getCSVBean(Reader reader, Class<E> csvClass) throws CSVBuilderException {
         try {
             CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);

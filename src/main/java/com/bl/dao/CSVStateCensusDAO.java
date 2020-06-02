@@ -19,24 +19,31 @@ public class CSVStateCensusDAO
     public String getState() {
         return State;
     }
+
     public int getPopulation() {
         return Population;
     }
+
     public int getAreaInSqKm() {
         return AreaInSqKm;
     }
+
     public int getDensityPerSqKm() {
         return DensityPerSqKm;
     }
+
     public String getStateCode() {
         return StateCode;
     }
+
     public String getPopulationDensity() {
         return PopulationDensity;
     }
+
     public String getArea() {
         return Area;
     }
+
     @Override
     public String toString() {
         return

@@ -6,21 +6,21 @@ import com.bl.dao.CSVStateCensusDAO;
 import com.bl.model.CSVStateCensus;
 import com.bl.model.CSVStateCode;
 import com.bl.model.CSVUSCensusData;
-import org.junit.Test;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import java.io.IOException;
 import static com.bl.censusanalyzer.FileUtility.*;
 public class StateCensusAnalyserTest
 {
     StateCensusAnalyser stateCensusAnalyser;
+
     @Before
     public void setUp() {
         stateCensusAnalyser = new StateCensusAnalyser();
     }
 
-    /* TC 1.1 : Given the States Census CSV file, Check to ensure the Number of Record matches */
     @Test
     public void givenTheStatesCensusCSVFile_whenNumberOfRecordMatch_shouldReturnTrue() throws CSVBuilderException {
         try {
@@ -30,8 +30,7 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 1.2 : Given the State Census CSV File if incorrect Returns a custom Exception */
-    /* TC 1.3 : Given the State Census CSV File when correct but type incorrect Returns a custom Exception */
+
     @Test
     public void givenFileNameAndType_whenImproper_shouldThrowException() throws IOException, CSVBuilderException {
         try {
@@ -41,8 +40,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 1.4 : Given The state census File When Correct But Delimiter Incorrect Should Return Custom Exception */
-    /* TC 1.5 : Given the State Census CSV File when correct but csv header incorrect Returns a custom Exception */
     @Test
     public void givenTheStateCensusFile_WhenCorrectButDelimiterAndHeaderIncorrect_shouldReturnCustomException() throws IOException,
             CSVBuilderException {
@@ -53,7 +50,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 2.1 :Check to ensure the Number of Record matches */
     @Test
     public void givenTotalRecordsFromStateCsvDataFile_whenMatch_shouldReturnTrue() throws CSVBuilderException {
         try {
@@ -63,8 +59,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 2.2 :test to check if StateCensusData file is incorrect */
-    /*TC 2.3: test to check if StateCensusData file is correct but type is incorrect */
     @Test
     public void givenStateCodeCSVFileNameType_whenImproper_shouldThrowException() throws IOException, CSVBuilderException {
         try {
@@ -74,7 +68,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 2.4/2.05 test to check if StateCensus Data file is correct but Header and Delimiter is incorrect */
     @Test
     public void givenStateCodeCSVFileData_whenIncorrect_shouldThrowException() throws IOException, CSVBuilderException {
         try {
@@ -84,19 +77,18 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC : 3 test to check census data is sorted in Json format */
     @Test
     public void givenStateCensusData_whenSortedOnStates_shouldReturnSortedResult() throws CSVBuilderException {
         try {
             stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH, CSVStateCensus.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVStateCensus.class, 0);
+            System.out.println(sortedStateCensusData);
             CSVStateCensusDAO[] csvStateCensus = new Gson().fromJson(sortedStateCensusData, CSVStateCensusDAO[].class);
-            Assert.assertEquals("Bihar", csvStateCensus[0].getState());
+            Assert.assertEquals("Andhra Pradesh", csvStateCensus[0].getState());
         } catch (StateCensusAnalyserException e) {
         }
     }
 
-    /* TC : 4 test to check census data is sorted in Json format according to State code */
     @Test
     public void givenStateCodeData_whenSortedOnStates_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -109,7 +101,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC : 5 test to check census data is sorted in Json format according to Population  */
     @Test
     public void givenStateCensusPopulationData_whenSortedOnStates_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -121,7 +112,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC 6 : test to check census data is sorted in Json format according to Density */
     @Test
     public void givenStateCensusDensityWiseData_whenSortedOnStates_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -133,7 +123,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC : 7 test to check census data is sorted in Json format according to Area Wise */
     @Test
     public void givenStateCensusData_whenSortedOnAreaWise_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -145,7 +134,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    //TC: 8 Test Ensure Number Of Records Matches of USCensusData
     @Test
     public void givenTotalRecordFromCSV_WhenMatched_ShouldReturnTrue() throws CSVBuilderException {
         try {
@@ -155,7 +143,6 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /*TC 9: Given State Census data when sorted should return sorted start population state */
     @Test
     public void givenCensusCSVData_WhenSorted_ThenReturnSortedStartPopulationState() throws CSVBuilderException {
         try {
@@ -167,19 +154,17 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* TC :10.1 test to check US census data is sorted in Json format according to Density Wise */
     @Test
     public void givenUSStateCensusData_whenSortedOnDensityWise_shouldReturnSortedResult() throws CSVBuilderException {
         try {
             stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH, CSVUSCensusData.class);
             String sortedStateCensusData = stateCensusAnalyser.getSortData(CSVUSCensusData.class, 5);
-            CSVStateCensusDAO[] csvStateCensusPojo = new Gson().fromJson(sortedStateCensusData,CSVStateCensusDAO[].class);
+            CSVStateCensusDAO[] csvStateCensusPojo = new Gson().fromJson(sortedStateCensusData, CSVStateCensusDAO[].class);
             Assert.assertEquals(3805.61, csvStateCensusPojo[0].getPopulationDensity());
         } catch (StateCensusAnalyserException e) {
         }
     }
 
-    /* TC:10.2 test to check US census data is sorted in Json format according to Area Wise */
     @Test
     public void givenUSStateCensusData_whenSortedOnAreaWise_shouldReturnSortedResult() throws CSVBuilderException {
         try {
@@ -191,19 +176,18 @@ public class StateCensusAnalyserTest
         }
     }
 
-    /* Dual Sorting for US and india */
     @Test
     public void givenUsAndIndiaCensusData_WhenSorted_ThenShouldReturnSortedResult() throws CSVBuilderException {
         try {
             stateCensusAnalyser.loadIndianData(DATA_CSV_FILE_PATH,CSVStateCensus.class);
             String sortedData = stateCensusAnalyser.getSortData(CSVStateCensus.class,1);
             CSVStateCensusDAO[] indianStateCensesAnalyzers = new Gson().fromJson(sortedData,CSVStateCensusDAO[].class);
-            Assert.assertEquals(1980602, indianStateCensesAnalyzers[28].getPopulation());
+            Assert.assertEquals(91347736, indianStateCensesAnalyzers[0].getPopulation());
 
             stateCensusAnalyser.loadIndianData(US_CSV_FILE_PATH,CSVUSCensusData.class);
             String UssortedData = stateCensusAnalyser.getSortData(CSVUSCensusData.class,5);
             CSVStateCensusDAO[] USStateCensesAnalyzers = new Gson().fromJson(UssortedData, CSVStateCensusDAO[].class);
-            Assert.assertEquals(3805, USStateCensesAnalyzers[50].getPopulationDensity()); }
+            Assert.assertEquals(3805, USStateCensesAnalyzers[0].getPopulationDensity()); }
         catch (StateCensusAnalyserException e) {
         }
     }

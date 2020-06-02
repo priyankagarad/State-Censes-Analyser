@@ -1,3 +1,7 @@
+/***********************************************************************************************************************
+ * @purpose:Load data from csv file and sort Data according to field value
+ * @Author:priyanka garad
+ ***********************************************************************************************************************/
 package com.bl.censusanalyzer;
 import com.bl.builder.CSVBuilderFactory;
 import com.bl.builder.ICSVBuilder;
@@ -10,12 +14,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 public class StateCensusAnalyser<T> {
     List<T> csvFileList = null;
     Map<Object, T> csvStateCodeMap = new HashMap<>();
 
+    /**
+     * @purpose:load data from Csv File and Store the Record in list and calculated count of number of record
+     * @param csvFilePath:path of Csv file that define file fileUtility class
+     * @param csvClass
+     * @return:number of records
+     * @throws CSVBuilderException
+     */
     public int loadIndianData(String csvFilePath, Class<T> csvClass) throws CSVBuilderException {
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -35,6 +49,7 @@ public class StateCensusAnalyser<T> {
         }
     }
 
+
     public String getSortData(Object T,int Number) throws StateCensusAnalyserException {
         if (csvFileList.size() == 0 | csvFileList == null) {
             throw new StateCensusAnalyserException("No Census Data", StateCensusAnalyserException.exceptionType.NO_CENSUS_DATA);
@@ -43,8 +58,14 @@ public class StateCensusAnalyser<T> {
         String sortedData = new Gson().toJson(csvFileList);
         return sortedData;
     }
-        public void sort(List<T> csvFileList,int number) {
-            for (int i = 0; i < csvFileList.size(); i++) {
+
+    /**
+     * @purpose:sorted the record
+     * @param csvFileList
+     * @param number
+     */
+    public void sort(List<T> csvFileList,int number) {
+        for (int i = 0; i < csvFileList.size(); i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
                 String census1[] = csvFileList.get(i).toString().split(",");
                 String census2[] =csvFileList.get(j).toString().split(",");

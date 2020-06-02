@@ -10,24 +10,19 @@ public class CSVStateCensus<E>
     private int AreaInSqKm;
     @CsvBindByName(column = "DensityPerSqKm")
     private int DensityPerSqKm;
-
-    public String getState()
-    {
+    public String getState() {
         return State;
     }
 
-    public int getPopulation()
-    {
+    public int getPopulation() {
         return Population;
     }
 
-    public int getAreaInSqKm()
-    {
+    public int getAreaInSqKm() {
         return AreaInSqKm;
     }
 
-    public int getDensityPerSqKm()
-    {
+    public int getDensityPerSqKm() {
         return DensityPerSqKm;
     }
 }
